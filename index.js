@@ -61,5 +61,17 @@ server.get("/api/users/:id", (req, res) => {
 });
 
 server.delete("/api/users/:id", (req, res) => {
-  Users.remove(req.params.id).then();
+  Users.remove(req.params.id)
+    .then(deleted => {
+      if (deleted) {
+        res.status(204).json({ message: "The user was deleted." });
+      } else {
+        res
+          .status(404)
+          .json({ message: "The user with the specified ID does not exist." });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ error: "The user could not be removed." });
+    });
 });
