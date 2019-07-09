@@ -59,3 +59,7 @@ server.get("/api/users/:id", (req, res) => {
         .json({ error: "The user information could not be retrieved." });
     });
 });
+
+server.delete("/api/users/:id", (req, res) => {
+  Users.remove(req.params.id).then();
+});
